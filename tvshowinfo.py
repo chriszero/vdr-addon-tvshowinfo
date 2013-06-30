@@ -210,9 +210,17 @@ def main():
 
     seasno = "%02d" % results.SeasonNumber
     epno = "%02d" % results.EpisodeNumber
-    output = "Series" + __delimiter__ + args.show +  __delimiter__ + seasno +'x'+epno + " - " + results.EpisodeName
+    output = "Serien" + __delimiter__ + args.show +  __delimiter__ + seasno +'x'+epno + " - " + results.EpisodeName
     if args.forceunderscores:
         output = output.replace(" ", "_")
+    
+    output = output.replace(u"ä", "ae")
+    output = output.replace(u"Ä", "Ae")
+    output = output.replace(u"ü", "ue")
+    output = output.replace(u"Ü", "Ue")
+    output = output.replace(u"ö", "oe")
+    output = output.replace(u"Ö", "Oe")
+    output = output.replace(u"ß", "ss")    
     print(output)
 
 
