@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.2
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # pylint: disable-msg=C0301
 """
@@ -64,8 +64,8 @@ def s_prepare(value):
     """
     Prepare a string by removing all special characters from it
     """
-    value = re.sub('[^A-Za-z0-9 ]', '', str(value).lower())
-    return value
+    value = re.sub('[^A-Za-z0-9 ]', '', value)
+    return value.encode('utf-8').lower()
 
 
 def check_exceptions_tvshow(tvshow):
@@ -149,7 +149,7 @@ def query_tvdb(args):
         # loop through the episodes to find matching
         for season in show:
             for episode in season:
-                if str(episode.EpisodeName).lower() == episodenameclean.lower():
+                if episode.EpisodeName.lower() == episodenameclean.decode('utf-8').lower():
                     results = episode
 
         # loop again with fuzzy search, if no result was found
@@ -210,7 +210,7 @@ def main():
 
     seasno = "%02d" % results.SeasonNumber
     epno = "%02d" % results.EpisodeNumber
-    output = "Series" + __delimiter__ + args.show + __delimiter__ + "Staffel_" + seasno + __delimiter__ + epno + " - " + results.EpisodeName
+    output = "Series" + __delimiter__ + args.show +  __delimiter__ + seasno +'x'+epno + " - " + results.EpisodeName
     if args.forceunderscores:
         output = output.replace(" ", "_")
     print(output)
